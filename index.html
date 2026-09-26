@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WUJING·無境 — 网站已迁移</title>
+<meta http-equiv="refresh" content="5;url=https://www.wujingcn.top">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='white'/%3E%3Ctext x='32' y='45' font-size='36' font-family='Arial, sans-serif' font-weight='700' text-anchor='middle' fill='%231F1F1F'%3EW%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --fg: #1F1F1F;
+  --muted: #6B7280;
+  --accent: #1F1F1F;
+  --line: rgba(31, 31, 31, .12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ===== 顶栏：团队名称 ===== */
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 22px 28px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .03em;
+  padding: 10px 12px;
+  margin: -10px -12px;
+}
+
+/* ===== 主体：文案 + 倒计时 + 按钮 ===== */
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 20px 56px;
+}
+h1 {
+  font-size: clamp(30px, 6vw, 46px);
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.desc {
+  margin-top: 18px;
+  max-width: 34em;
+  font-size: 15px;
+  line-height: 2;
+  color: var(--muted);
+}
+.desc .num {
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.progress {
+  margin-top: 36px;
+  width: min(320px, 72vw);
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+.progress > span { display: block; height: 100%; width: 0; background: var(--accent); }
+.cta {
+  margin-top: 28px;
+  display: inline-block;
+  padding: 13px 36px;
+  border: 1px solid var(--fg);
+  border-radius: 999px;
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  transition: background .18s ease, color .18s ease;
+}
+.cta:hover { background: var(--fg); color: #FFFFFF; }
+.cta:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+/* ===== 页脚 ===== */
+footer {
+  padding: 18px 28px 24px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: #9CA3AF;
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="https://www.wujingcn.top" aria-label="前往 WUJING·無境 新站点">WUJING·無境</a>
+</header>
+
+<main class="stage">
+  <h1>该网站已停止运营</h1>
+  <p class="desc">
+    原站点已完成迁移，感谢你曾经的访问与关注。<br>
+    页面将在 <span class="num" id="count">5</span> 秒后自动前往新地址，也可以点击下方按钮立即跳转。
+  </p>
+  <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+  <a class="cta" href="https://www.wujingcn.top" id="go">立即跳转</a>
+</main>
+
+<footer>© 2026 WUJING·無境</footer>
+
+<script>
+(function () {
+  var TARGET = 'https://www.wujingcn.top';
+  var TOTAL = 5;
+  var countEl = document.getElementById('count');
+  var barEl = document.getElementById('bar');
+  var done = false;
+
+  function go() {
+    if (done) return;
+    done = true;
+    window.location.href = TARGET;
+  }
+
+  var start = Date.now();
+  var timer = setInterval(function () {
+    var elapsed = (Date.now() - start) / 1000;
+    var remain = Math.max(0, TOTAL - elapsed);
+    countEl.textContent = Math.ceil(remain);
+    barEl.style.width = Math.min(100, elapsed / TOTAL * 100) + '%';
+    if (remain <= 0) {
+      clearInterval(timer);
+      go();
+    }
+  }, 100);
+
+  document.getElementById('go').addEventListener('click', go);
+})();
+</script>
+
+</body>
+</html>
